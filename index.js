@@ -1,24 +1,21 @@
-const Agent = require('node-agent-sdk').Agent;
-
-const agent = new Agent({
-    accountId: process.env.LP_ACCOUNT,
-    username: process.env.LP_USER,
-    password: process.env.LP_PASS
+const http = require("http");
+const WebSocketServer = require('websocket').server;
+const server = http.createServer();
+server.listen(9898, () => {
+    console.log("listening to port 9898")
 });
 
-agent.on('connected', () => {
-    console.log(`connected...`);
+const wsServer = new WebSocketServer({
+    httpServer: server
+});
 
-    // subscribe to all conversations in the account
-    agent.subscribeExConversations({
-        'convState': ['OPEN']
-    }, (err, resp) => {
-        console.log('subscribed successfully', err, resp);
+wsServer.on('request', function(request) {
+    const connection = request.accept(null, request.origin);
+    connection.on('message', function(message) {
+      console.log('Received Message:', message.utf8Data);
+      connection.sendUTF('Hi this is WebSocket server!');
+    });
+    connection.on('close', function(reasonCode, description) {
+        console.log('Client has disconnected.');
     });
 });
-
-// log all conversation updates
-agent.on('cqm.ExConversationChangeNotification', notificationBody => {
-    console.log(JSON.stringify(notificationBody));
-})
-
