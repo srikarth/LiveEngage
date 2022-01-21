@@ -1,8 +1,8 @@
 const http = require("http");
 const WebSocketServer = require('websocket').server;
 const server = http.createServer();
-server.listen(9898, () => {
-    console.log("listening to port 9898")
+server.listen(8080, () => {
+    console.log("listening to port 8080")
 });
 
 const wsServer = new WebSocketServer({

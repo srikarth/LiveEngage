@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Websocket test</title>
+    </head>
+</html>
+<script>
+    "use strict";
+    let socket = new WebSocket("wss://va.msg.liveperson.net/ws_api/account/45117844/messaging/consumer?v=3&authorization=jwt eyJraWQiOiIwMDAwMSIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI5ZWE3ZWYwYy01MzM0LTQzNjktOTU3MC02ZTQ3ZTViNjMwMTYiLCJhdWQiOiJhY2M6NDUxMTc4NDQiLCJpc3MiOiJodHRwczpcL1wvaWRwLmxpdmVwZXJzb24ubmV0IiwiZXhwIjoyMDUzMDI0NTE4LCJpYXQiOjE2NDI3ODQ0NzgsImp0aSI6IjVjM2E5NmQ0LTk5NzctNDQ5MC1hMDc5LWE4NzJiOGEyZGExNCJ9.UN0273kE3i77MF8qLejd-6dRWF6rFNbyX_BSaV1AoRz2RwKzEA-NuHEB7IwzMs1QJkR6n8bkEePVjeLpzXc9ljvrXgTlxPZn2XKj8psiFVBIeSLqT8k3AQgpue7TtjlIvA8-ZRVWL-dtf6hoGBcWSuseHYeXOsgA239QFsWk3lxyNY12UfePdw_VyqpY3tr9of_f0ws4pQ1JH5EA6O4OOY4QhA3L2UmE0lwKa5Xujd1y7YKFmfoKl1Ne4kB5ZyFU78_Nds8-Vz3qK3PztBJZ4q0IdwQM6P4_0oZmH6CSPETogwrnsjbxhvFkfPc5DueF-DZarDFJcUBOyzQ7QgBUqg");
+    socket.onopen = function(e) {
+        socket.send(JSON.stringify({kind:"req",id:1,type:"cm.ConsumerRequestConversation"}))
+    }
+
+    socket.onmessage = function(event) {
+        if (typeof event.data === String) {
+            var jsonObject = JSON.parse(event.data);
+            console.log(jsonObject);
+        }
+    }
+
+    socket.onerror = function(error) {
+        console.log(error)
+    }
+</script>
