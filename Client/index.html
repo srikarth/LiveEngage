@@ -10,7 +10,7 @@
     socket.onopen = function(e) {
         console.log('websocket is connected');
         //socket.send('{"kind":"req","id":1,"type":"cm.ConsumerRequestConversation"}')
-        socket.send(JSON.stringify({kind:"req",id:1,type:"cm.ConsumerRequestConversation"}))
+        socket.send(JSON.stringify({kind:"req",id:1,type:"cm.ConsumerRequestConversation"}));
        
     }
 
@@ -22,6 +22,6 @@
     }
 
     socket.onerror = function(error) {
-        console.log(error)
+        console.log(error);
     }
 </script>
